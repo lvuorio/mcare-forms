@@ -238,62 +238,6 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
   
-  const startNewButton = document.querySelector('.header-nav-startnew');
-    const form = document.querySelector('form.content-form');
-
-    if (startNewButton) {
-        startNewButton.addEventListener('click', function(event) {
-            if (formHasData(form)) {
-                const message = "Oletko varma, että haluat tehdä uuden huoltotilauksen? Vaikuttaa siltä, ettet ole vielä lähettänyt sitä";
-                const proceed = customConfirm(message, "Kyllä, tee uusi huoltotilaus", "Peruuta");
-                
-                if (!proceed) {
-                    event.preventDefault();
-                } else {
-                    window.location.href = "https://www.mcare.fi/kiosk/kamppi/private";
-                    event.preventDefault();
-                }
-            }
-        });
-    }
-
-    function formHasData(formElement) {
-        const inputs = formElement.querySelectorAll('input, textarea, select');
-        for (let input of inputs) {
-            if (input.type === "checkbox" || input.type === "radio") {
-                if (input.checked) return true;
-            } else if (input.value.trim() !== "") {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    function customConfirm(message, okButtonText, cancelButtonText) {
-        const modalContent = '
-            <div>
-                <p>${message}</p>
-                <button id="okButton">${okButtonText}</button>
-                <button id="cancelButton">${cancelButtonText}</button>
-            </div>
-        ';
-
-        const modal = document.createElement('div');
-        modal.innerHTML = modalContent;
-        document.body.appendChild(modal);
-
-        return new Promise(resolve => {
-            document.getElementById('okButton').addEventListener('click', function() {
-                document.body.removeChild(modal);
-                resolve(true);
-            });
-
-            document.getElementById('cancelButton').addEventListener('click', function() {
-                document.body.removeChild(modal);
-                resolve(false);
-            });
-        });
-    }
   
   
 });
